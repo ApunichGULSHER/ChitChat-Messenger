@@ -10,4 +10,6 @@
     <color name="teal_A100">#A7FFEB</color>
     <color name="teal_900">#004D40</color>
     <color name="cyan_500">#00BCD4</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_800">#424242</color>
 </resources>

@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/accounticon.xml" value="0.1" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/edit_text_background.xml" value="0.1" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/friends_list_lyout.xml" value="0.1225" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/helpicon.xml" value="0.1" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/inviteicon.xml" value="0.1" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/login_button.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/logouicon.xml" value="0.1" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/mymsglayout.xml" value="0.1" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/profile_pic_layout.xml" value="0.1" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/search_button.xml" value="0.1225" />
