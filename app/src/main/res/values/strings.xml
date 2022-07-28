@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ChitChat</string>
+    <string name="AppName">ChitChat...❤</string>
+    <string name="name">Name</string>
+    <string name="mobile">Mobile Number</string>
+    <string name="splashscreenText">SplashScreen</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="BrandName">Apunich.Inc</string>
+    <string name="DevName">(ApunichGULSHER)</string>
+</resources>

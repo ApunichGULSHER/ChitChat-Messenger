@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/edit_text_background.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/friends_list_lyout.xml" value="0.1225" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/login_button.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/mymsglayout.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/profile_pic_layout.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/search_button.xml" value="0.1225" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/setprofilepiclayout.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/user_icon.xml" value="0.1225" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/drawable/yourmsglayout.xml" value="0.1" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_chat.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_creat_profile.xml" value="0.27447916666666666" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_create_profile.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_friends_list.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_login.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_login_otpactivity.xml" value="0.27447916666666666" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_otpactivity.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_signup.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_signupotpactivity.xml" value="0.10185185185185185" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/chatadapterlayout.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/friends_list_layout.xml" value="0.2" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
