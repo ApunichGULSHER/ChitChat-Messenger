@@ -18,7 +18,6 @@ import com.blogspot.bunnylists.chitchat.R
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var sendButton: Button
-    private lateinit var backButton: Button
     private lateinit var profile_Pic: CircleImageView
     private lateinit var nameTextView: TextView
     private lateinit var onlineTextView: TextView
@@ -31,7 +30,6 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         sendButton = findViewById(R.id.sendButton)
-        backButton = findViewById(R.id.backButton)
         profile_Pic = findViewById(R.id.profile_pic2)
         nameTextView = findViewById(R.id.PersonName2)
         onlineTextView = findViewById(R.id.Online)
@@ -54,9 +52,6 @@ class ChatActivity : AppCompatActivity() {
         val chatRecyclerAdapter = ChatAdapter(this, chatList, loggedInUserMobile, mobile)
         chatRecyclerView.adapter = chatRecyclerAdapter
 
-        backButton.setOnClickListener {
-            finish()
-        }
 
         mDbRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {

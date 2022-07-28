@@ -27,10 +27,11 @@
         android:layout_marginHorizontal="25dp"
         android:hint="@string/mobile"
         android:layout_marginTop="30dp"
-        android:textColorHint="@color/cardview_dark_background"
+        android:textColorHint="@color/grey_800"
         android:background="@drawable/edit_text_background"
         android:paddingStart="15dp"
         android:inputType="number"
+        android:textColor="@color/grey_800"
         />
     <Button
         android:id="@+id/signupSignupButton"
