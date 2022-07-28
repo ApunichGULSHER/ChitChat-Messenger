@@ -9,6 +9,6 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        Toast.makeText(this, "I am laughing!!", Toast.LENGTH_SHORT).show()
+
     }
 }
