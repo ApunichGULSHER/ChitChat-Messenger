@@ -22,17 +22,19 @@ class FriendsList : AppCompatActivity() {
     private var unseenMassages = 0
     private var chatKey = ""
     private var dataSet : Boolean = false
+    private lateinit var loggedInUserProfileUrl : String
+    private lateinit var loggedInUserName : String
+    private lateinit var loggedInUserAbout : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_list)
         userPic = findViewById(R.id.UserPic)
-        userPic.setOnClickListener {
-            val intent : Intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-        }
         massageList = ArrayList()
         mDbRef = FirebaseDatabase.getInstance().reference
         mAuth = FirebaseAuth.getInstance()
+        loggedInUserProfileUrl=""
+        loggedInUserName=""
+        loggedInUserAbout=""
 
         userListRecyclerView = findViewById(R.id.UserListRecyclerView)
         userListRecyclerView.setHasFixedSize(true)
@@ -50,9 +52,11 @@ class FriendsList : AppCompatActivity() {
                 for(postSnap in snapshot.children){
                     val mobile = postSnap.key.toString()
                     if(mobile==loggedInUserMobileNumber){
-                        val picUrl = postSnap.child("profilePicUrl").value.toString()
-                        if(picUrl.isNotEmpty()){
-                         Picasso.get().load(picUrl).into(userPic)
+                        loggedInUserProfileUrl = postSnap.child("profilePicUrl").value.toString()
+                        loggedInUserName = postSnap.child("name").value.toString()
+                        loggedInUserAbout = postSnap.child("about").value.toString()
+                        if(loggedInUserProfileUrl.isNotEmpty()){
+                         Picasso.get().load(loggedInUserProfileUrl).into(userPic)
                         }
                     }
                     dataSet = false
@@ -96,5 +100,13 @@ class FriendsList : AppCompatActivity() {
                 Toast.makeText(this@FriendsList, "Could not get User data", Toast.LENGTH_SHORT).show()
             }
         })
+
+        userPic.setOnClickListener {
+            val intent : Intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("profileUrl", loggedInUserProfileUrl)
+            intent.putExtra("userName", loggedInUserName)
+            intent.putExtra("userAbout", loggedInUserAbout)
+            startActivity(intent)
+        }
     }
 }

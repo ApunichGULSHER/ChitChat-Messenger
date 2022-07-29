@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 class createProfileActivity : AppCompatActivity() {
     private lateinit var editTextName : EditText
+    private lateinit var editTextAbout : EditText
     private lateinit var continueButton : Button
     private lateinit var mAuth : FirebaseAuth
     private lateinit var mDBRef : DatabaseReference
@@ -24,17 +25,19 @@ class createProfileActivity : AppCompatActivity() {
 
         editTextName = findViewById(R.id.UserName)
         continueButton = findViewById(R.id.ContinueButton)
+        editTextAbout = findViewById(R.id.UserAbout)
 
         continueButton.setOnClickListener {
             val name  = editTextName.text.toString()
-            if(name.isEmpty())
+            val about = editTextAbout.text.toString()
+            if(name.isNullOrEmpty() || about.isNullOrEmpty())
                 Toast.makeText(this, "Please Enter Name", Toast.LENGTH_SHORT).show()
             else{
                 val profilePicUrl = "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg?auto=compress&cs=tinysrgb&w=600"
                 mAuth = FirebaseAuth.getInstance()
                 val phoneNumber = mAuth.currentUser?.phoneNumber!!
                 mDBRef = FirebaseDatabase.getInstance().reference
-                mDBRef.child("Users").child(phoneNumber).setValue(User(name, phoneNumber, profilePicUrl))
+                mDBRef.child("Users").child(phoneNumber).setValue(User(name, phoneNumber, profilePicUrl, about))
                 startActivity(Intent(this, FriendsList::class.java))
                 finish()
             }

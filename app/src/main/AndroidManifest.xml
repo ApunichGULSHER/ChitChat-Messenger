@@ -13,43 +13,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChitChat">
         <activity
-            android:name="com.blogspot.bunnylists.chitchat.ProfileMenu.ProfileActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.blogspot.bunnylists.chitchat.Chat.ChatActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.blogspot.bunnylists.chitchat.FriendsList"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.blogspot.bunnylists.chitchat.SignUp.createProfileActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.blogspot.bunnylists.chitchat.LoginOTPactivity"
+            android:name=".ProfileMenu.AccountActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:exported="false" />
         <activity
-            android:name="com.blogspot.bunnylists.chitchat.MainActivity"
-            android:exported="false"
-            android:label="@string/title_activity_main"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity
-            android:name="com.blogspot.bunnylists.chitchat.SignUp.SignupOTPactivity"
+            android:name=".ProfileMenu.ProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name="com.blogspot.bunnylists.chitchat.SignUp.SignupActivity"
+            android:name=".Chat.ChatActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name="com.blogspot.bunnylists.chitchat.LoginActivity"
+            android:name=".FriendsList"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name="com.blogspot.bunnylists.chitchat.SplashActivity"
+            android:name=".SignUp.createProfileActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".LoginOTPactivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="false" />
+
+        <activity
+            android:name=".SignUp.SignupOTPactivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".SignUp.SignupActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>

@@ -11,11 +11,11 @@
         android:id="@+id/userImage"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/user_icon"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/teal_A100"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="50dp"
+        android:src="@drawable/user_icon"
+        app:civ_border_color="@color/teal_A100"
+        app:civ_border_width="1dp" />
     <LinearLayout
         android:id="@+id/upperBar"
         android:layout_marginTop="60dp"
@@ -25,12 +25,14 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Name"
             android:textColor="@color/teal_900"
             android:textSize="20sp"/>
         <TextView
+            android:id="@+id/About"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/teal_700"
@@ -55,6 +57,7 @@
         android:orientation="vertical"
         android:layout_below="@+id/BaseLine1">
         <LinearLayout
+            android:id="@+id/accounttab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -64,34 +67,20 @@
                 android:layout_height="40dp"
                 android:src="@drawable/accounticon" />
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="Account"
+                android:background="@drawable/edit_text_background"
+                android:paddingHorizontal="15dp"
                 android:textColor="@color/grey_800"
                 android:layout_marginTop="3dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:textSize="25sp"/>
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/helpicon" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Help"
-                android:textColor="@color/grey_800"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="3dp"
-                android:textSize="25sp"/>
-        </LinearLayout>
-        <LinearLayout
+            android:id="@+id/refertab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -102,16 +91,19 @@
                 android:layout_height="40dp"
                 android:src="@drawable/inviteicon" />
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Invite a friend"
+                android:text="  Invite   "
+                android:gravity="center"
                 android:textColor="@color/grey_800"
+                android:background="@drawable/edit_text_background"
+                android:paddingHorizontal="15dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginStart="20dp"
-                android:textStyle=""
+                android:layout_marginStart="10dp"
                 android:textSize="25sp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/logouttab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -122,13 +114,15 @@
                 android:layout_height="40dp"
                 android:src="@drawable/logouicon" />
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Logout"
+                android:text=" Logout "
+                android:gravity="center"
                 android:textColor="@color/grey_800"
+                android:background="@drawable/edit_text_background"
+                android:paddingHorizontal="15dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginStart="20dp"
-                android:textStyle=""
+                android:layout_marginStart="10dp"
                 android:textSize="25sp"/>
         </LinearLayout>
     </LinearLayout>
@@ -164,5 +158,4 @@
         android:layout_marginBottom="18dp"
         android:textStyle="bold"
         android:textSize="10sp"/>
-
 </RelativeLayout>
