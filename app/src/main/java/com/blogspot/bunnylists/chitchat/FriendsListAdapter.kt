@@ -28,12 +28,12 @@ class FriendsListAdapter(val context: Context, private val massageList : List<Ma
         holder.lastMassage.text = massageList[position].lastMessage
         if(massageList[position].unseenMessages == 0){
             holder.unseen_massages_count.isVisible = false
-            holder.lastMassage.setTextColor(Color.WHITE)
+            holder.lastMassage.isVisible = false
         }
         else{
             holder.unseen_massages_count.isVisible = true
             holder.unseen_massages_count.text = massageList[position].unseenMessages.toString()
-            holder.lastMassage.setTextColor(Color.BLACK)
+            holder.lastMassage.isVisible = true
         }
 
         holder.rootLayout.setOnClickListener {
