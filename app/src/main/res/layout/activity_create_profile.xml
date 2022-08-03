@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/teal_A100"
+    android:background="@color/white"
     tools:context=".SignUp.createProfileActivity">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/setProfilePicIV"
@@ -17,7 +17,6 @@
         app:civ_border_width="1dp"
         app:civ_border_color="@color/teal_900"
         android:layout_marginBottom="60dp"
-        android:background="@drawable/setprofilepiclayout"
         />
     <EditText
         android:layout_width="match_parent"

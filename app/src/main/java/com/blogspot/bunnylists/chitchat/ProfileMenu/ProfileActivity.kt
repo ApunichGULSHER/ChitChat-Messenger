@@ -37,12 +37,12 @@ class ProfileActivity : AppCompatActivity() {
 
 
         val name = intent.getStringExtra("userName").toString()
-        val profileUrl = intent.getStringExtra("profileUrl").toString()
+        val profilePicUrl = intent.getStringExtra("profileUrl").toString()
         val about = intent.getStringExtra("userAbout").toString()
 
         nameTV.text = name
         aboutTV.text = about
-        Picasso.get().load(profileUrl).into(profilePic)
+        Picasso.get().load(profilePicUrl).into(profilePic)
 
         logoutTab.setOnClickListener {
             mAuth.signOut()
@@ -57,6 +57,13 @@ class ProfileActivity : AppCompatActivity() {
 
         referTab.setOnClickListener {
             TODO()
+        }
+        profilePic.setOnClickListener {
+            val intent = Intent(this, UpdateProfileActivity::class.java)
+            intent.putExtra("name", name)
+            intent.putExtra("about", about)
+            intent.putExtra("profilePicUrl", profilePicUrl)
+            startActivity(intent)
         }
     }
 }

@@ -16,9 +16,6 @@ class SignupOTPactivity : AppCompatActivity() {
     private lateinit var otpEditText: EditText
     private lateinit var otpButton: Button
     private lateinit var mAuth : FirebaseAuth
-    private lateinit var mDB : FirebaseDatabase
-    private lateinit var mDBRef : DatabaseReference
-    private lateinit var fUser : FirebaseUser
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signupotpactivity)
@@ -43,9 +40,6 @@ class SignupOTPactivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this){ task->
                 if(task.isSuccessful){
-                    val pref : SharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
-                    val editor : SharedPreferences.Editor = pref.edit()
-                    editor.putBoolean("LogedIn", true).apply()
                     startActivity(Intent(this, createProfileActivity::class.java))
                     finish()
                 }

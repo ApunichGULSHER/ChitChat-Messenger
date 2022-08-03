@@ -2,6 +2,7 @@ package com.blogspot.bunnylists.chitchat.SignUp
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -53,14 +54,10 @@ class createProfileActivity() : AppCompatActivity(){
         mFireStore = FirebaseStorage.getInstance()
 
         profilePic.setOnClickListener {
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)==
-                        PackageManager.PERMISSION_DENIED){
-                    val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                    requestPermissions(permissions, STORAGE_REQ_CODE)
-                }
-                else
-                    pickImageFromGallery()
+            if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)==
+                    PackageManager.PERMISSION_DENIED){
+                val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                requestPermissions(permissions, STORAGE_REQ_CODE)
             }
             else
                 pickImageFromGallery()
@@ -71,6 +68,9 @@ class createProfileActivity() : AppCompatActivity(){
             if(name.isNullOrEmpty() || about.isNullOrEmpty())
                 Toast.makeText(this, "Please Enter Name", Toast.LENGTH_SHORT).show()
             else{
+                val pref : SharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
+                val editor : SharedPreferences.Editor = pref.edit()
+                editor.putBoolean("LogedIn", true).apply()
                 mDBRef = FirebaseDatabase.getInstance().reference
                 mDBRef.child("Users").child(phoneNumber).setValue(User(name, phoneNumber, userImageUrl, about))
                 startActivity(Intent(this, FriendsList::class.java))

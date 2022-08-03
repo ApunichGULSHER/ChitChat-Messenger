@@ -1,6 +1,8 @@
 package com.blogspot.bunnylists.chitchat
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -14,17 +16,19 @@ import com.squareup.picasso.Picasso
 
 class FriendsList : AppCompatActivity() {
     private lateinit var userListRecyclerView: RecyclerView
+    private lateinit var recyclerAdapter : FriendsListAdapter
     private lateinit var mDbRef : DatabaseReference
-    private lateinit var mAuth: FirebaseAuth
-    private lateinit var massageList : ArrayList<Massege>
+    private lateinit var mAuth : FirebaseAuth
+    private lateinit var massageList: ArrayList<Massege>
     private lateinit var userPic : ImageView
     private var lastMassage = ""
     private var unseenMassages = 0
     private var chatKey = ""
-    private var dataSet : Boolean = false
-    private lateinit var loggedInUserProfileUrl : String
-    private lateinit var loggedInUserName : String
-    private lateinit var loggedInUserAbout : String
+    private var dataSet: Boolean = false
+    private lateinit var loggedInUserProfileUrl: String
+    private lateinit var loggedInUserName: String
+    private lateinit var loggedInUserAbout: String
+    private val CONTACT_REQ_CODE: Int = 101
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_list)
@@ -39,74 +43,116 @@ class FriendsList : AppCompatActivity() {
         userListRecyclerView = findViewById(R.id.UserListRecyclerView)
         userListRecyclerView.setHasFixedSize(true)
         userListRecyclerView.layoutManager = LinearLayoutManager(this)
-        val recyclerAdapter = FriendsListAdapter(this, massageList)
+        recyclerAdapter = FriendsListAdapter(this, massageList)
         userListRecyclerView.adapter = recyclerAdapter
+        if (checkSelfPermission(android.Manifest.permission.READ_CONTACTS) ==
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            filterFriends()
+        } else {
+            val permissions = arrayOf(android.Manifest.permission.READ_CONTACTS)
+            requestPermissions(permissions, CONTACT_REQ_CODE)
+        }
 
-        mDbRef.child("Users").addValueEventListener(object : ValueEventListener{
+        userPic.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("profileUrl", loggedInUserProfileUrl)
+            intent.putExtra("userName", loggedInUserName)
+            intent.putExtra("userAbout", loggedInUserAbout)
+            startActivity(intent)
+        }
+    }
+
+    private fun filterFriends() {
+        displayFriendsList()
+    }
+
+    private fun displayFriendsList() {
+        mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 massageList.clear()
                 unseenMassages = 2
                 lastMassage = ""
                 chatKey = ""
                 val loggedInUserMobileNumber = mAuth.currentUser?.phoneNumber!!.toString()
-                for(postSnap in snapshot.children){
+                for (postSnap in snapshot.children) {
                     val mobile = postSnap.key.toString()
-                    if(mobile==loggedInUserMobileNumber){
+                    if (mobile == loggedInUserMobileNumber) {
                         loggedInUserProfileUrl = postSnap.child("profilePicUrl").value.toString()
                         loggedInUserName = postSnap.child("name").value.toString()
                         loggedInUserAbout = postSnap.child("about").value.toString()
-                        if(loggedInUserProfileUrl.isNotEmpty()){
-                         Picasso.get().load(loggedInUserProfileUrl).into(userPic)
+                        if (loggedInUserProfileUrl.isNotEmpty()) {
+                            Picasso.get().load(loggedInUserProfileUrl).into(userPic)
                         }
                     }
                     dataSet = false
-                    if(mobile!=loggedInUserMobileNumber){
+                    if (mobile != loggedInUserMobileNumber) {
                         val name = postSnap.child("name").value.toString()
                         val picUrl = postSnap.child("profilePicUrl").value.toString()
-                        mDbRef.child("Chats").addListenerForSingleValueEvent(object : ValueEventListener{
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                val chatCounts : Int = snapshot.childrenCount.toInt()
-                                if(chatCounts>0){
-                                    for (postSnap2 in snapshot.children){
-                                        val key = postSnap2.value.toString()
-                                        chatKey = key
-                                        if(postSnap2.hasChild("User_1") && postSnap2.hasChild("User2") && postSnap2.hasChild("massages")){
-                                            val user1 = postSnap2.child("User_1").value.toString()
-                                            val user2 = postSnap2.child("User_2").value.toString()
-                                            if((user1 == mobile && user2 == loggedInUserMobileNumber) || (user1 == loggedInUserMobileNumber && user2 == mobile)){
-                                                for(chatSnap in postSnap2.child("massages").children){
-                                                    lastMassage = chatSnap.child("msg").value.toString()
+                        mDbRef.child("Chats")
+                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(snapshot: DataSnapshot) {
+                                    val chatCounts: Int = snapshot.childrenCount.toInt()
+                                    if (chatCounts > 0) {
+                                        for (postSnap2 in snapshot.children) {
+                                            val key = postSnap2.value.toString()
+                                            chatKey = key
+                                            if (postSnap2.hasChild("User_1") && postSnap2.hasChild("User2") && postSnap2.hasChild(
+                                                    "massages"
+                                                )
+                                            ) {
+                                                val user1 =
+                                                    postSnap2.child("User_1").value.toString()
+                                                val user2 =
+                                                    postSnap2.child("User_2").value.toString()
+                                                if ((user1 == mobile && user2 == loggedInUserMobileNumber) || (user1 == loggedInUserMobileNumber && user2 == mobile)) {
+                                                    for (chatSnap in postSnap2.child("massages").children) {
+                                                        lastMassage =
+                                                            chatSnap.child("msg").value.toString()
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
-                            override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
-                            }
 
-                        })
-                        if(!dataSet){
+                                override fun onCancelled(error: DatabaseError) {
+                                    TODO("Not yet implemented")
+                                }
+
+                            })
+                        if (!dataSet) {
                             dataSet = true
-                            val massage = Massege(name, mobile, lastMassage, unseenMassages, picUrl, chatKey)
+                            val massage =
+                                Massege(name, mobile, lastMassage, unseenMassages, picUrl, chatKey)
                             massageList.add(massage)
                         }
                     }
                 }
                 recyclerAdapter.notifyDataSetChanged()
             }
+
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@FriendsList, "Could not get User data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@FriendsList, "Could not get User data", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
+    }
 
-        userPic.setOnClickListener {
-            val intent : Intent = Intent(this, ProfileActivity::class.java)
-            intent.putExtra("profileUrl", loggedInUserProfileUrl)
-            intent.putExtra("userName", loggedInUserName)
-            intent.putExtra("userAbout", loggedInUserAbout)
-            startActivity(intent)
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            CONTACT_REQ_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    displayFriendsList()
+                } else
+                    Toast.makeText(this, "We need permission to find friends", Toast.LENGTH_SHORT)
+                        .show()
+            }
         }
     }
 }
