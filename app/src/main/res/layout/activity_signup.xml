@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
         android:text="Verify"
-        android:textColor="@color/teal_900"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:textAllCaps="false"
         />

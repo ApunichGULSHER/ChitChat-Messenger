@@ -41,6 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="Login"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:textAllCaps="false"
         />
@@ -50,11 +51,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create Account"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:background="@drawable/login_button"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:textAllCaps="false"
+        android:paddingHorizontal="7dp"
         />
 
 </RelativeLayout>

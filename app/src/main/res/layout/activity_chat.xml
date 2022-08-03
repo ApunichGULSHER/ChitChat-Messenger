@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/chatpage"
     tools:context=".Chat.ChatActivity">
     <RelativeLayout
         android:id="@+id/upperBar"
@@ -64,9 +64,9 @@
     <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
