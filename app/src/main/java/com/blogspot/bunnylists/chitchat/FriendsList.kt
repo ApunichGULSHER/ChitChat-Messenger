@@ -1,12 +1,14 @@
 package com.blogspot.bunnylists.chitchat
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
+import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blogspot.bunnylists.chitchat.ProfileMenu.ProfileActivity
@@ -14,13 +16,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
+
 class FriendsList : AppCompatActivity() {
     private lateinit var userListRecyclerView: RecyclerView
-    private lateinit var recyclerAdapter : FriendsListAdapter
-    private lateinit var mDbRef : DatabaseReference
-    private lateinit var mAuth : FirebaseAuth
+    private lateinit var recyclerAdapter: FriendsListAdapter
+    private lateinit var mDbRef: DatabaseReference
+    private lateinit var mAuth: FirebaseAuth
     private lateinit var massageList: ArrayList<Massege>
-    private lateinit var userPic : ImageView
+    private lateinit var userPic: ImageView
     private var lastMassage = ""
     private var unseenMassages = 0
     private var chatKey = ""
@@ -29,6 +32,8 @@ class FriendsList : AppCompatActivity() {
     private lateinit var loggedInUserName: String
     private lateinit var loggedInUserAbout: String
     private val CONTACT_REQ_CODE: Int = 101
+    var contacts = ArrayList<String>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_list)
@@ -36,9 +41,9 @@ class FriendsList : AppCompatActivity() {
         massageList = ArrayList()
         mDbRef = FirebaseDatabase.getInstance().reference
         mAuth = FirebaseAuth.getInstance()
-        loggedInUserProfileUrl=""
-        loggedInUserName=""
-        loggedInUserAbout=""
+        loggedInUserProfileUrl = ""
+        loggedInUserName = ""
+        loggedInUserAbout = ""
 
         userListRecyclerView = findViewById(R.id.UserListRecyclerView)
         userListRecyclerView.setHasFixedSize(true)
@@ -64,11 +69,13 @@ class FriendsList : AppCompatActivity() {
     }
 
     private fun filterFriends() {
+        addContacts()
         displayFriendsList()
     }
 
     private fun displayFriendsList() {
         mDbRef.child("Users").addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 massageList.clear()
                 unseenMassages = 2
@@ -154,5 +161,33 @@ class FriendsList : AppCompatActivity() {
                         .show()
             }
         }
+    }
+
+    @SuppressLint("Range")
+    fun addContacts() {
+
+        //to store name-number pair
+        val phones = contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+        while (phones!!.moveToNext()) {
+            var newPhoneNumber : String =
+                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).toString()
+            newPhoneNumber = newPhoneNumber.trim()
+            if (newPhoneNumber.length>10)
+                newPhoneNumber = newPhoneNumber.replace("\\s".toRegex(), "")
+            if (newPhoneNumber.length>10)
+                newPhoneNumber = newPhoneNumber.replace("-", "")
+            if(newPhoneNumber.length == 10)
+                newPhoneNumber= "+91$newPhoneNumber"
+            contacts.add(newPhoneNumber)
+            Log.d("Contacts", newPhoneNumber)
+        }
+        phones.close()
+
     }
 }
