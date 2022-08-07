@@ -33,6 +33,7 @@ class FriendsList : AppCompatActivity() {
     private lateinit var loggedInUserAbout: String
     private val CONTACT_REQ_CODE: Int = 101
     var contacts = ArrayList<String>()
+    var contactsSet = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +94,7 @@ class FriendsList : AppCompatActivity() {
                         }
                     }
                     dataSet = false
-                    if (mobile != loggedInUserMobileNumber) {
+                    if (mobile != loggedInUserMobileNumber && contactsSet.contains(mobile)) {
                         val name = postSnap.child("name").value.toString()
                         val picUrl = postSnap.child("profilePicUrl").value.toString()
                         mDbRef.child("Chats")
@@ -122,7 +123,6 @@ class FriendsList : AppCompatActivity() {
                                         }
                                     }
                                 }
-
                                 override fun onCancelled(error: DatabaseError) {
                                     TODO("Not yet implemented")
                                 }
@@ -185,9 +185,9 @@ class FriendsList : AppCompatActivity() {
             if(newPhoneNumber.length == 10)
                 newPhoneNumber= "+91$newPhoneNumber"
             contacts.add(newPhoneNumber)
+            contactsSet.add(newPhoneNumber)
             Log.d("Contacts", newPhoneNumber)
         }
         phones.close()
-
     }
 }
