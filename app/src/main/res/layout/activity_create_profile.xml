@@ -49,10 +49,10 @@
         android:layout_marginTop="50dp"
         android:layout_height="wrap_content"
         android:id="@+id/ContinueButton"
-        android:text="Set..."
+        android:text="Set"
         android:textAllCaps="false"
         android:textStyle="bold"
-        android:textColor="@color/teal_900"
+        android:textColor="@color/white"
         android:background="@drawable/login_button"
         />
 

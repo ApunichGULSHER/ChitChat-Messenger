@@ -1,17 +1,18 @@
 package com.blogspot.bunnylists.chitchat.ProfileMenu
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.blogspot.bunnylists.chitchat.LoginActivity
 import com.blogspot.bunnylists.chitchat.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
+
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var accountTab : LinearLayout
@@ -47,6 +48,7 @@ class ProfileActivity : AppCompatActivity() {
         logoutTab.setOnClickListener {
             mAuth.signOut()
             val intent = Intent(this, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
 
@@ -56,7 +58,8 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         referTab.setOnClickListener {
-            TODO()
+            val intent = Intent(this, InviteFriends::class.java)
+            startActivity(intent)
         }
         profilePic.setOnClickListener {
             val intent = Intent(this, UpdateProfileActivity::class.java)
@@ -67,3 +70,4 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 }
+

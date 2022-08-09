@@ -23,6 +23,7 @@
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_creat_profile.xml" value="0.27447916666666666" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_create_profile.xml" value="0.2" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_friends_list.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_invite_friends.xml" value="0.25677083333333334" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_login_otpactivity.xml" value="0.2" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_otpactivity.xml" value="0.2" />
@@ -33,6 +34,7 @@
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/activity_update_profile.xml" value="0.2" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/chatadapterlayout.xml" value="0.2" />
         <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/friends_list_layout.xml" value="0.2" />
+        <entry key="..\:/Education/AndroidStudioProjects/ChitChat/app/src/main/res/layout/invite_list_layout.xml" value="0.2" />
       </map>
     </option>
   </component>

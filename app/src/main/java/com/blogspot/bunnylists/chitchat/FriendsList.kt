@@ -32,7 +32,6 @@ class FriendsList : AppCompatActivity() {
     private lateinit var loggedInUserName: String
     private lateinit var loggedInUserAbout: String
     private val CONTACT_REQ_CODE: Int = 101
-    var contacts = ArrayList<String>()
     var contactsSet = mutableSetOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +71,36 @@ class FriendsList : AppCompatActivity() {
     private fun filterFriends() {
         addContacts()
         displayFriendsList()
+    }
+
+    @SuppressLint("Range")
+    fun addContacts() {
+        val phones = contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+        while (phones!!.moveToNext()) {
+            var newPhoneNumber: String =
+                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    .toString()
+            newPhoneNumber = newPhoneNumber.trim()
+            if (newPhoneNumber.length > 10)
+                newPhoneNumber = newPhoneNumber.replace("\\s".toRegex(), "")
+            if (newPhoneNumber.length > 10)
+                newPhoneNumber = newPhoneNumber.replace("-", "")
+            if(newPhoneNumber.length > 10)
+                newPhoneNumber = newPhoneNumber.replace("(", "")
+            if(newPhoneNumber.length > 10)
+                newPhoneNumber = newPhoneNumber.replace(")", "")
+            if (newPhoneNumber.length == 10)
+                newPhoneNumber = "+91$newPhoneNumber"
+            contactsSet.add(newPhoneNumber)
+        }
+        phones.close()
+//        Toast.makeText(this, "${contactsSet.size}", Toast.LENGTH_SHORT).show()
     }
 
     private fun displayFriendsList() {
@@ -123,6 +152,7 @@ class FriendsList : AppCompatActivity() {
                                         }
                                     }
                                 }
+
                                 override fun onCancelled(error: DatabaseError) {
                                     TODO("Not yet implemented")
                                 }
@@ -155,39 +185,11 @@ class FriendsList : AppCompatActivity() {
         when (requestCode) {
             CONTACT_REQ_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    displayFriendsList()
+                    filterFriends()
                 } else
                     Toast.makeText(this, "We need permission to find friends", Toast.LENGTH_SHORT)
                         .show()
             }
         }
-    }
-
-    @SuppressLint("Range")
-    fun addContacts() {
-
-        //to store name-number pair
-        val phones = contentResolver.query(
-            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            null,
-            null,
-            null,
-            null
-        )
-        while (phones!!.moveToNext()) {
-            var newPhoneNumber : String =
-                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).toString()
-            newPhoneNumber = newPhoneNumber.trim()
-            if (newPhoneNumber.length>10)
-                newPhoneNumber = newPhoneNumber.replace("\\s".toRegex(), "")
-            if (newPhoneNumber.length>10)
-                newPhoneNumber = newPhoneNumber.replace("-", "")
-            if(newPhoneNumber.length == 10)
-                newPhoneNumber= "+91$newPhoneNumber"
-            contacts.add(newPhoneNumber)
-            contactsSet.add(newPhoneNumber)
-            Log.d("Contacts", newPhoneNumber)
-        }
-        phones.close()
     }
 }

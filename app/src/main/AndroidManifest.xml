@@ -15,9 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChitChat">
         <activity
+            android:name=".ProfileMenu.InviteFriends"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:exported="false" />
+        <activity
             android:name=".ProfileMenu.UpdateProfileActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".ProfileMenu.AccountActivity"
             android:exported="false"
