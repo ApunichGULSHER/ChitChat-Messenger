@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +21,7 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var sendButton: Button
     private lateinit var profile_Pic: CircleImageView
     private lateinit var nameTextView: TextView
-    private lateinit var onlineTextView: TextView
+    private lateinit var aboutTextView: TextView
     private lateinit var massageEditText: EditText
     private lateinit var mDbRef: DatabaseReference
     private lateinit var mAuth: FirebaseAuth
@@ -32,7 +33,7 @@ class ChatActivity : AppCompatActivity() {
         sendButton = findViewById(R.id.sendButton)
         profile_Pic = findViewById(R.id.profile_pic2)
         nameTextView = findViewById(R.id.PersonName2)
-        onlineTextView = findViewById(R.id.Online)
+        aboutTextView = findViewById(R.id.About)
         massageEditText = findViewById(R.id.msgEdtTxt)
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().reference
@@ -43,6 +44,16 @@ class ChatActivity : AppCompatActivity() {
         val mobile = intent.getStringExtra("mobile").toString()
         var chatKey: String = intent.getStringExtra("chatKey").toString()
         nameTextView.text = name
+
+        mDbRef.child("Users").child(mobile).addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                aboutTextView.text = snapshot.child("about").value.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {
+                aboutTextView.text = "Live Happiness"
+            }
+        })
+        aboutTextView.text
         Picasso.get().load(profilePicUrl).into(profile_Pic)
         val loggedInUserMobile = mAuth.currentUser?.phoneNumber!!
 

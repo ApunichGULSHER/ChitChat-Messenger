@@ -38,13 +38,13 @@
                 android:text="Name"
                 android:textColor="@color/teal_900"/>
             <TextView
-                android:id="@+id/Online"
+                android:id="@+id/About"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:textStyle="bold"
                 android:textColor="@color/cyan_500"
-                android:text="Online"
+                android:text="About"
                 android:textSize="14sp"/>
         </LinearLayout>
     </RelativeLayout>

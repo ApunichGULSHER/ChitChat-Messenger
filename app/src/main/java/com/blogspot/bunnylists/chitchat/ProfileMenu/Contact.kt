@@ -1,6 +1,6 @@
 package com.blogspot.bunnylists.chitchat.ProfileMenu
 
-class InvitableUser (
+class Contact (
     var contactName : String,
     var contactPhone : String
         )

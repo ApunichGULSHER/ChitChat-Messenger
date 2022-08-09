@@ -8,15 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.compose.animation.core.snap
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.blogspot.bunnylists.chitchat.FriendsListAdapter
-import com.blogspot.bunnylists.chitchat.Massege
 import com.blogspot.bunnylists.chitchat.R
 import com.google.firebase.database.*
 
-class InviteListAdapter(val context: Context, private val inviteList : List<InvitableUser>) :
+class InviteListAdapter(val context: Context, private val inviteList : List<Contact>) :
     RecyclerView.Adapter<InviteListAdapter.MyViewHolder>() {
     private lateinit var mDbRef : DatabaseReference
     private lateinit var appLink : String
