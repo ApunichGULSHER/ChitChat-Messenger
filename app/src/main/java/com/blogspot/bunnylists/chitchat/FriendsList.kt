@@ -45,6 +45,7 @@ class FriendsList : AppCompatActivity() {
         loggedInUserName = ""
         loggedInUserAbout = ""
 
+
         userListRecyclerView = findViewById(R.id.UserListRecyclerView)
         userListRecyclerView.setHasFixedSize(true)
         userListRecyclerView.layoutManager = LinearLayoutManager(this)

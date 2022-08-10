@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/login_background"
     android:backgroundTint="@color/teal_A100"
     tools:context=".SplashActivity">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/splashscreenText"
-        android:textSize="50sp"
-        android:textColor="@color/teal_900"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/splashpage"
+        android:scaleType="centerCrop"
         />
 </LinearLayout>

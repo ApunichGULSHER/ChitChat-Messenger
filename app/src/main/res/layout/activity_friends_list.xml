@@ -14,10 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/AppName"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
             android:textColor="@color/teal_900"
-            android:textSize="30sp"/>
+            android:textSize="20sp"/>
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"

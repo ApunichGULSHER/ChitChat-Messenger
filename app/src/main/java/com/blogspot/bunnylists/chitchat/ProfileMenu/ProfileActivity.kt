@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.blogspot.bunnylists.chitchat.LoginActivity
 import com.blogspot.bunnylists.chitchat.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 
@@ -23,6 +23,9 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var nameTV : TextView
     private lateinit var aboutTV : TextView
     private lateinit var profilePic : ImageView
+    private lateinit var name : String
+    private lateinit var about : String
+    private lateinit var profilePicUrl : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +39,9 @@ class ProfileActivity : AppCompatActivity() {
         aboutTV = findViewById(R.id.About)
         profilePic = findViewById(R.id.userImage)
 
-
-        val name = intent.getStringExtra("userName").toString()
-        val profilePicUrl = intent.getStringExtra("profileUrl").toString()
-        val about = intent.getStringExtra("userAbout").toString()
+        name = intent.getStringExtra("userName").toString()
+        about = intent.getStringExtra("userAbout").toString()
+        profilePicUrl = intent.getStringExtra("profileUrl").toString()
 
         nameTV.text = name
         aboutTV.text = about
@@ -62,11 +64,11 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
         profilePic.setOnClickListener {
-            val intent = Intent(this, UpdateProfileActivity::class.java)
-            intent.putExtra("name", name)
-            intent.putExtra("about", about)
-            intent.putExtra("profilePicUrl", profilePicUrl)
-            startActivity(intent)
+                val intent = Intent(this, UpdateProfileActivity::class.java)
+                intent.putExtra("name", name)
+                intent.putExtra("about", about)
+                intent.putExtra("profilePicUrl", profilePicUrl)
+                startActivity(intent)
         }
     }
 }

@@ -71,7 +71,12 @@ class UpdateProfileActivity : AppCompatActivity() {
             mDbRef.child("Users").child(loggedInUserMobile)
                 .setValue(User(updatedName, loggedInUserMobile, profilePicUrl, updatedAbout))
             Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, FriendsList::class.java))
+            intent = Intent(this, ProfileActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("profileUrl", profilePicUrl)
+            intent.putExtra("userName", updatedName)
+            intent.putExtra("userAbout", updatedAbout)
+            startActivity(intent)
         }
     }
     override fun onRequestPermissionsResult(
