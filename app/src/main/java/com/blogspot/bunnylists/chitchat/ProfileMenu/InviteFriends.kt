@@ -83,6 +83,9 @@ class InviteFriends : AppCompatActivity() {
                 newPhoneNumber = newPhoneNumber.replace("(", "")
             if(newPhoneNumber.length > 10)
                 newPhoneNumber = newPhoneNumber.replace(")", "")
+            if(newPhoneNumber.startsWith("0")){
+                newPhoneNumber = newPhoneNumber.substring(1)
+            }
             if (newPhoneNumber.length == 10)
                 newPhoneNumber = "+91$newPhoneNumber"
             if(contactsSet.contains(newPhoneNumber))

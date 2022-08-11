@@ -1,5 +1,6 @@
 package com.blogspot.bunnylists.chitchat.SignUp
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.blogspot.bunnylists.chitchat.Chat.LoadingDialog
 import com.blogspot.bunnylists.chitchat.R
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
@@ -14,6 +16,7 @@ import com.google.firebase.database.*
 import java.util.concurrent.TimeUnit
 
 class SignupActivity : AppCompatActivity() {
+    private lateinit var loadingDialog : LoadingDialog
     private lateinit var editTextPhone : EditText
     private lateinit var signupButton : Button
     lateinit var mAuth : FirebaseAuth
@@ -28,6 +31,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
         editTextPhone=findViewById(R.id.signupEditTextPhone)
         signupButton=findViewById(R.id.signupSignupButton)
+        loadingDialog = LoadingDialog(this)
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -37,12 +41,13 @@ class SignupActivity : AppCompatActivity() {
 
             // This method is called when the verification is completed
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-
+                loadingDialog.isDismiss()
             }
 
             // Called when verification is failed add log statement to see the exception
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(this@SignupActivity, "Network issue, please try later", Toast.LENGTH_SHORT).show()
+                loadingDialog.isDismiss()
+                Toast.makeText(this@SignupActivity, "Server error, please try later", Toast.LENGTH_SHORT).show()
             }
 
             // On code is sent by the firebase this method is called
@@ -51,7 +56,7 @@ class SignupActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                Log.d("Msg", "onCodeSent: $verificationId")
+                loadingDialog.isDismiss()
                 storedVerificationId = verificationId
                 resendToken = token
 
@@ -82,10 +87,14 @@ class SignupActivity : AppCompatActivity() {
                     if(snapshot.child("Users").hasChild(number)){
                         Toast.makeText(this@SignupActivity, "Number already Registered", Toast.LENGTH_SHORT).show()
                     }
-                    else
+                    else{
+                        loadingDialog.startLoading()
                         sendVerificationCode(number)
+                    }
                 }
                 override fun onCancelled(error: DatabaseError) {
+                    loadingDialog.isDismiss()
+                    Toast.makeText(this@SignupActivity, "Server error, please try later", Toast.LENGTH_SHORT).show()
                 }
             })
         }

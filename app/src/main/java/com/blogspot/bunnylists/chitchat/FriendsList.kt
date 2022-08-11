@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.blogspot.bunnylists.chitchat.Chat.LoadingDialog
 import com.blogspot.bunnylists.chitchat.ProfileMenu.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -33,6 +34,7 @@ class FriendsList : AppCompatActivity() {
     private lateinit var loggedInUserAbout: String
     private val CONTACT_REQ_CODE: Int = 101
     var contactsSet = mutableSetOf<String>()
+    private  lateinit var loadingDialog : LoadingDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +47,7 @@ class FriendsList : AppCompatActivity() {
         loggedInUserName = ""
         loggedInUserAbout = ""
 
+        loadingDialog = LoadingDialog(this)
 
         userListRecyclerView = findViewById(R.id.UserListRecyclerView)
         userListRecyclerView.setHasFixedSize(true)
@@ -70,6 +73,7 @@ class FriendsList : AppCompatActivity() {
     }
 
     private fun filterFriends() {
+        loadingDialog.startLoading()
         addContacts()
         displayFriendsList()
     }
@@ -96,12 +100,14 @@ class FriendsList : AppCompatActivity() {
                 newPhoneNumber = newPhoneNumber.replace("(", "")
             if(newPhoneNumber.length > 10)
                 newPhoneNumber = newPhoneNumber.replace(")", "")
+            if(newPhoneNumber.startsWith("0")){
+                newPhoneNumber = newPhoneNumber.substring(1)
+            }
             if (newPhoneNumber.length == 10)
                 newPhoneNumber = "+91$newPhoneNumber"
             contactsSet.add(newPhoneNumber)
         }
         phones.close()
-//        Toast.makeText(this, "${contactsSet.size}", Toast.LENGTH_SHORT).show()
     }
 
     private fun displayFriendsList() {
@@ -168,6 +174,7 @@ class FriendsList : AppCompatActivity() {
                     }
                 }
                 recyclerAdapter.notifyDataSetChanged()
+                loadingDialog.isDismiss()
             }
 
             override fun onCancelled(error: DatabaseError) {

@@ -43,7 +43,7 @@ class InviteListAdapter(val context: Context, private val inviteList : List<Cont
         holder.rootLayout.setOnClickListener {
             val smsUri = Uri.parse("smsto:${inviteList[position].contactPhone}")
             val smsIntent = Intent(Intent.ACTION_SENDTO, smsUri)
-            smsIntent.putExtra("sms_body", "Hey let's chat on ChiChat-Messenger, follow the link to download: $appLink")
+            smsIntent.putExtra("sms_body", "Hey let's chat on ChitChat-Messenger, follow the link to download: $appLink")
             context.startActivity(smsIntent)
         }
     }

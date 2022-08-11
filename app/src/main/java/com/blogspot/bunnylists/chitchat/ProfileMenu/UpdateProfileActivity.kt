@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.blogspot.bunnylists.chitchat.Chat.LoadingDialog
 import com.blogspot.bunnylists.chitchat.FriendsList
 import com.blogspot.bunnylists.chitchat.R
 import com.blogspot.bunnylists.chitchat.User
@@ -22,6 +23,7 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 class UpdateProfileActivity : AppCompatActivity() {
+    private lateinit var loadingDialog: LoadingDialog
     private lateinit var profilePic: CircleImageView
     private lateinit var nameET: EditText
     private lateinit var aboutET: EditText
@@ -38,6 +40,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_profile)
 
+        loadingDialog = LoadingDialog(this)
         profilePic = findViewById(R.id.updateProfilePicIV)
         nameET = findViewById(R.id.updateUserName)
         aboutET = findViewById(R.id.updateUserAbout)
@@ -106,15 +109,18 @@ class UpdateProfileActivity : AppCompatActivity() {
             if (data == null || data.data == null) {
                 return
             } else {
+                loadingDialog.startLoading()
                 profilePic.setImageURI(data.data)
                 val fileName = loggedInUserMobile
                 mStorageRef = mFireStore.reference.child("UserProfilePictures/$fileName")
                 mStorageRef.putFile(data.data!!).addOnSuccessListener { taskSnapshot ->
                     taskSnapshot.storage.downloadUrl.addOnSuccessListener {
                         profilePicUrl = it.toString()
+                        loadingDialog.isDismiss()
                     }
                 }
                     .addOnFailureListener(OnFailureListener { e ->
+                        loadingDialog.isDismiss()
                         Toast.makeText(this, "$e", Toast.LENGTH_SHORT).show()
                     })
             }

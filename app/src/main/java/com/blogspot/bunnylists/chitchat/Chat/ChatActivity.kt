@@ -58,7 +58,6 @@ class ChatActivity : AppCompatActivity() {
         val loggedInUserMobile = mAuth.currentUser?.phoneNumber!!
 
         chatRecyclerView = findViewById(R.id.chatRecyclerView)
-        chatRecyclerView.setHasFixedSize(true)
         chatRecyclerView.layoutManager = LinearLayoutManager(this)
         val chatRecyclerAdapter = ChatAdapter(this, chatList, loggedInUserMobile, mobile)
         chatRecyclerView.adapter = chatRecyclerAdapter

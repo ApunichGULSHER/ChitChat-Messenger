@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.blogspot.bunnylists.chitchat.Chat.LoadingDialog
 import com.blogspot.bunnylists.chitchat.SignUp.SignupActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +18,7 @@ import com.google.firebase.database.*
 import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var loadingDialog : LoadingDialog
     private lateinit var phoneText : EditText
     private lateinit var loginButton : Button
     private lateinit var createAccountButton: Button
@@ -34,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         createAccountButton = findViewById(R.id.loginSignupButton)
         loginButton = findViewById(R.id.loginLoginButton)
         mAuth = FirebaseAuth.getInstance()
+        loadingDialog = LoadingDialog(this)
 
 
         createAccountButton.setOnClickListener {
@@ -55,13 +58,15 @@ class LoginActivity : AppCompatActivity() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             // This method is called when the verification is completed
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                loadingDialog.isDismiss()
                 startActivity(Intent(applicationContext, FriendsList::class.java))
                 finish()
                 Log.d("Msg", "onVerificationCompleted Success")
             }
             // Called when verification is failed add log statement to see the exception
             override fun onVerificationFailed(e: FirebaseException) {
-                Log.d("MSg", "onVerificationFailed  $e")
+                loadingDialog.isDismiss()
+                Toast.makeText(this@LoginActivity, "Server error, please try later", Toast.LENGTH_SHORT).show()
             }
             // On code is sent by the firebase this method is called
             // in here we start a new activity where user can enter the OTP
@@ -69,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                Log.d("Msg", "onCodeSent: $verificationId")
+                loadingDialog.isDismiss()
                 storedVerificationId = verificationId
                 resendToken = token
 
@@ -101,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
         mDBref.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.child("Users").hasChild(number)){
+                    loadingDialog.startLoading()
                     sendVerificationCode(number)
                    }
                 else
