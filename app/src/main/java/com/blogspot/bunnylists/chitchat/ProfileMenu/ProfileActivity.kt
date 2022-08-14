@@ -1,7 +1,13 @@
 package com.blogspot.bunnylists.chitchat.ProfileMenu
 
+import android.app.DownloadManager
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -12,10 +18,12 @@ import com.blogspot.bunnylists.chitchat.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import java.io.File
+import java.net.URL
 
 
 class ProfileActivity : AppCompatActivity() {
-    private lateinit var accountTab : LinearLayout
+    private lateinit var updateTab : LinearLayout
     private lateinit var referTab : LinearLayout
     private lateinit var logoutTab : LinearLayout
     private lateinit var mAuth : FirebaseAuth
@@ -30,9 +38,9 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        accountTab = findViewById(R.id.accounttab)
         referTab = findViewById(R.id.refertab)
         logoutTab = findViewById(R.id.logouttab)
+        updateTab = findViewById(R.id.checkupdatetab)
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().reference
         nameTV = findViewById(R.id.Name)
@@ -54,11 +62,6 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        accountTab.setOnClickListener {
-            val intent = Intent(this, AccountActivity::class.java)
-            startActivity(intent)
-        }
-
         referTab.setOnClickListener {
             val intent = Intent(this, InviteFriends::class.java)
             startActivity(intent)
@@ -69,6 +72,33 @@ class ProfileActivity : AppCompatActivity() {
                 intent.putExtra("about", about)
                 intent.putExtra("profilePicUrl", profilePicUrl)
                 startActivity(intent)
+        }
+
+        updateTab.setOnClickListener {
+            mDbRef.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val currentVersion = applicationContext.packageManager
+                        .getPackageInfo(applicationContext.packageName, 0).versionName.toString()
+                    
+                    val latestVersion = snapshot.child("latestVersion").value.toString()
+                    var latestVersionLink = snapshot.child("AppDownloadLink").value
+                    if (currentVersion < latestVersion){
+                        Toast.makeText(this@ProfileActivity, "New version available, kindly download", Toast.LENGTH_SHORT).show()
+                        latestVersionLink = Uri.parse(latestVersionLink.toString())
+                        val intent = Intent(Intent.ACTION_VIEW, latestVersionLink)
+                        startActivity(intent)
+                    }
+                    else if(currentVersion > latestVersion)
+                        Toast.makeText(this@ProfileActivity, "Beta version installed", Toast.LENGTH_SHORT).show()
+                    else
+                        Toast.makeText(this@ProfileActivity, "Up to Date", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ProfileActivity, "Try later!", Toast.LENGTH_SHORT).show()
+                }
+
+            })
         }
     }
 }

@@ -2,15 +2,14 @@ package com.blogspot.bunnylists.chitchat.ProfileMenu
 
 import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.blogspot.bunnylists.chitchat.Chat.LoadingDialog
-import com.blogspot.bunnylists.chitchat.FriendsList
 import com.blogspot.bunnylists.chitchat.R
 import com.blogspot.bunnylists.chitchat.User
 import com.google.android.gms.tasks.OnFailureListener
@@ -24,7 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class UpdateProfileActivity : AppCompatActivity() {
     private lateinit var loadingDialog: LoadingDialog
-    private lateinit var profilePic: CircleImageView
+    private lateinit var profilePic: ImageView
     private lateinit var nameET: EditText
     private lateinit var aboutET: EditText
     private lateinit var updateButton: Button
