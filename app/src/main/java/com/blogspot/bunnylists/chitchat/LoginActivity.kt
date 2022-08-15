@@ -1,9 +1,11 @@
 package com.blogspot.bunnylists.chitchat
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -31,7 +33,11 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-//        Toast.makeText(this, "Entered Login Activity", Toast.LENGTH_SHORT).show()
+        val window = window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.parseColor("#E0E0E0")
+
         phoneText = findViewById(R.id.loginEditTextPhone)
         createAccountButton = findViewById(R.id.loginSignupButton)
         loginButton = findViewById(R.id.loginLoginButton)
@@ -46,11 +52,11 @@ class LoginActivity : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             var number = phoneText.text.trim()
-            if (number.isNotEmpty()) {
+            if (number.isEmpty() || number.length > 10 || number.length < 10) {
+                Toast.makeText(this, "Please enter a valid mobile number", Toast.LENGTH_SHORT).show()
+            } else {
                 number = "+91$number"
                 checkUser(number)
-            } else {
-                Toast.makeText(this, "Please enter Mobile number", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -3,9 +3,10 @@ package com.blogspot.bunnylists.chitchat
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +40,11 @@ class FriendsList : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friends_list)
+        val window = window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.parseColor("#009688")
+
         userPic = findViewById(R.id.UserPic)
         massageList = ArrayList()
         mDbRef = FirebaseDatabase.getInstance().reference
@@ -54,6 +60,8 @@ class FriendsList : AppCompatActivity() {
         userListRecyclerView.layoutManager = LinearLayoutManager(this)
         recyclerAdapter = FriendsListAdapter(this, massageList)
         userListRecyclerView.adapter = recyclerAdapter
+
+
         if (checkSelfPermission(android.Manifest.permission.READ_CONTACTS) ==
             PackageManager.PERMISSION_GRANTED
         ) {

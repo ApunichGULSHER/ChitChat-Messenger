@@ -1,13 +1,12 @@
 package com.blogspot.bunnylists.chitchat.ProfileMenu
 
 import android.app.DownloadManager
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
+import android.content.*
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -38,6 +37,12 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        val window = window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = Color.parseColor("#009688")
+
         referTab = findViewById(R.id.refertab)
         logoutTab = findViewById(R.id.logouttab)
         updateTab = findViewById(R.id.checkupdatetab)
@@ -57,6 +62,9 @@ class ProfileActivity : AppCompatActivity() {
 
         logoutTab.setOnClickListener {
             mAuth.signOut()
+            val pref : SharedPreferences = getSharedPreferences("login", MODE_PRIVATE)
+            val editor : SharedPreferences.Editor = pref.edit()
+            editor.putBoolean("LogedIn", false).apply()
             val intent = Intent(this, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)

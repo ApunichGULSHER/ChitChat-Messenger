@@ -31,7 +31,7 @@ class FriendsListAdapter(val context: Context, private val massageList : List<Ma
             holder.lastMassage.isVisible = false
         }
         else{
-            holder.unseen_massages_count.isVisible = true
+            holder.unseen_massages_count.isVisible = false
             holder.unseen_massages_count.text = massageList[position].unseenMessages.toString()
             holder.lastMassage.isVisible = true
         }

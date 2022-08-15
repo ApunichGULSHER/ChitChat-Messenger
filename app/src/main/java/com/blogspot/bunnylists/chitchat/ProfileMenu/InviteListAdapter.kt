@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.blogspot.bunnylists.chitchat.Chat.LoadingDialog
 import com.blogspot.bunnylists.chitchat.R
 import com.google.firebase.database.*
 
