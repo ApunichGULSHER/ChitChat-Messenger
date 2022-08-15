@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 
-class LoginOTPactivity : AppCompatActivity() {
+class LoginOtpActivity : AppCompatActivity() {
     private lateinit var otpButton : Button
     private lateinit var otpEditText : EditText
     private lateinit var mAuth : FirebaseAuth

@@ -49,7 +49,7 @@
     <Button
         android:id="@+id/loginSignupButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:text="Create Account"
         android:textColor="@color/white"
         android:background="@drawable/login_button"

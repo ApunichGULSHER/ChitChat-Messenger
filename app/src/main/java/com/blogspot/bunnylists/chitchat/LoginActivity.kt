@@ -88,7 +88,7 @@ class LoginActivity : AppCompatActivity() {
                 // also send the storedVerificationId using intent
                 // we will use this id to send the otp back to firebase
 //                Toast.makeText(this@LoginActivity, "code sent", Toast.LENGTH_SHORT).show()
-                val intent = Intent(applicationContext, LoginOTPactivity::class.java)
+                val intent = Intent(applicationContext, LoginOtpActivity::class.java)
                 intent.putExtra("storedVerificationId", storedVerificationId)
                 startActivity(intent)
                 finish()

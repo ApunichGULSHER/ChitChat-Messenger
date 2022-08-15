@@ -43,7 +43,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         val window = window
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.parseColor("#FFFFFF")
+        window.statusBarColor = Color.parseColor("#009688")
 
         loadingDialog = LoadingDialog(this)
         profilePic = findViewById(R.id.updateProfilePicIV)
@@ -78,7 +78,6 @@ class UpdateProfileActivity : AppCompatActivity() {
             mDbRef = FirebaseDatabase.getInstance().reference
             mDbRef.child("Users").child(loggedInUserMobile)
                 .setValue(User(updatedName, loggedInUserMobile, profilePicUrl, updatedAbout))
-            Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show()
             intent = Intent(this, ProfileActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("profileUrl", profilePicUrl)

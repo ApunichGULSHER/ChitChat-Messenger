@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".SignUp.createProfileActivity">
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/teal_500"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/view"
+        android:background="@color/white"/>
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/setProfilePicIV"
         android:layout_width="100dp"
@@ -15,7 +22,9 @@
         android:src="@drawable/user_icon"
         android:scaleType="centerCrop"
         app:civ_border_width="1dp"
-        app:civ_border_color="@color/teal_900"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        app:civ_border_color="@color/teal_50"
         android:layout_marginBottom="60dp"
         />
     <EditText
@@ -25,6 +34,8 @@
         android:background="@drawable/edit_text_background"
         android:layout_marginHorizontal="30dp"
         android:hint="Name"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/setProfilePicIV"
         android:textColorHint="@color/grey_800"
         android:paddingStart="15dp"
         android:textColor="@color/grey_800"
@@ -35,6 +46,8 @@
         android:layout_height="50dp"
         android:id="@+id/UserAbout"
         android:background="@drawable/edit_text_background"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/UserName"
         android:layout_marginHorizontal="30dp"
         android:hint="About"
         android:textColorHint="@color/grey_800"
@@ -48,13 +61,15 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/UserAbout"
         android:id="@+id/ContinueButton"
-        android:text="Set"
+        android:text="Create"
         android:textAllCaps="false"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:background="@drawable/login_button"
+        android:background="@drawable/login_button2"
         />
 
 
-</LinearLayout>
+</RelativeLayout>

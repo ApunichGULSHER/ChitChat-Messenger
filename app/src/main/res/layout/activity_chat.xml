@@ -55,7 +55,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomBar"
         android:layout_below="@+id/upperBar"
-        android:background="@drawable/chatpage" />
+        android:background="@drawable/chat_page" />
     <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
