@@ -141,6 +141,7 @@ class FriendsList : AppCompatActivity() {
                     if (mobile != loggedInUserMobileNumber && contactsSet.contains(mobile)) {
                         val name = postSnap.child("name").value.toString()
                         val picUrl = postSnap.child("profilePicUrl").value.toString()
+                        val about = postSnap.child("about").value.toString()
                         mDbRef.child("Chats")
                             .addListenerForSingleValueEvent(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -149,34 +150,18 @@ class FriendsList : AppCompatActivity() {
                                         for (postSnap2 in snapshot.children) {
                                             val key = postSnap2.value.toString()
                                             chatKey = key
-                                            if (postSnap2.hasChild("User_1") && postSnap2.hasChild("User2") && postSnap2.hasChild(
-                                                    "massages"
-                                                )
-                                            ) {
-                                                val user1 =
-                                                    postSnap2.child("User_1").value.toString()
-                                                val user2 =
-                                                    postSnap2.child("User_2").value.toString()
-                                                if ((user1 == mobile && user2 == loggedInUserMobileNumber) || (user1 == loggedInUserMobileNumber && user2 == mobile)) {
-                                                    for (chatSnap in postSnap2.child("massages").children) {
-                                                        lastMassage =
-                                                            chatSnap.child("msg").value.toString()
-                                                    }
-                                                }
-                                            }
                                         }
                                     }
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {
-                                    TODO("Not yet implemented")
+                                    Toast.makeText(this@FriendsList, "Server error", Toast.LENGTH_SHORT).show()
                                 }
-
                             })
                         if (!dataSet) {
                             dataSet = true
                             val massage =
-                                Massege(name, mobile, lastMassage, unseenMassages, picUrl, chatKey)
+                                Massege(name, mobile, picUrl, chatKey, about)
                             massageList.add(massage)
                         }
                     }

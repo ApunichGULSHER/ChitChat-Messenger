@@ -25,16 +25,7 @@ class FriendsListAdapter(val context: Context, private val massageList : List<Ma
     override fun onBindViewHolder(holder: FriendsListAdapter.MyViewHolder, position: Int) {
         holder.PersonName.text = massageList[position].name
         Picasso.get().load(massageList[position].profilePicUrl).into(holder.profile_pic)
-        holder.lastMassage.text = massageList[position].lastMessage
-        if(massageList[position].unseenMessages == 0){
-            holder.unseen_massages_count.isVisible = false
-            holder.lastMassage.isVisible = false
-        }
-        else{
-            holder.unseen_massages_count.isVisible = false
-            holder.unseen_massages_count.text = massageList[position].unseenMessages.toString()
-            holder.lastMassage.isVisible = true
-        }
+        holder.personAbout.text = massageList[position].about
 
         holder.rootLayout.setOnClickListener {
             val intent  = Intent(context, ChatActivity::class.java)
@@ -53,8 +44,7 @@ class FriendsListAdapter(val context: Context, private val massageList : List<Ma
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val profile_pic = itemView.findViewById<ImageView>(R.id.profile_pic)
         val PersonName = itemView.findViewById<TextView>(R.id.PersonName)
-        val lastMassage = itemView.findViewById<TextView>(R.id.lastMassage)
-        val unseen_massages_count = itemView.findViewById<TextView>(R.id.unseen_massages_count)
+        val personAbout = itemView.findViewById<TextView>(R.id.about2)
         val rootLayout = itemView.findViewById<LinearLayout>(R.id.root_Layout)
     }
 

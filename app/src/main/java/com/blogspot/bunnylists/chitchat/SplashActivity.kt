@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
         val window = window
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = Color.parseColor("#A7FFEB")
+        window.statusBarColor = Color.parseColor("#009688")
 
         Handler().postDelayed({
             val pref: SharedPreferences = getSharedPreferences("login",MODE_PRIVATE)
